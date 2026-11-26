@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5faf7">
+<title>RupeeVault | Cash Counter</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+ --green:#16845d;
+ --dark:#174b39;
+ --bg:#f5f8f6;
+ --white:#ffffff;
+ --muted:#89968f;
+ --border:#e8eeea;
+ --gold:#d7a94e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ font-family:Inter,Arial,sans-serif;
+ background:var(--bg);
+ color:#263c32;
+ padding:20px 14px;
+}
+
+.app{max-width:780px;margin:auto}
+
+header{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:22px;
+}
+
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+ width:43px;height:43px;
+ background:var(--dark);
+ border-radius:13px;
+ display:grid;place-items:center;
+ color:#fff;
+ font-size:25px;
+ font-weight:800;
+ box-shadow:0 5px 12px #174b3925;
+}
+.brand h1{font-size:19px;font-weight:800;letter-spacing:1px}
+.brand small{display:block;color:var(--green);font-size:9px;letter-spacing:2px;margin-top:3px}
+
+.offline{
+ font-size:10px;
+ color:var(--green);
+ background:#e7f5ed;
+ padding:8px 11px;
+ border-radius:30px;
+ font-weight:700;
+}
+
+.hero{
+ background:linear-gradient(120deg,#174b39,#21845e);
+ border-radius:20px;
+ padding:23px;
+ color:white;
+ margin-bottom:22px;
+ box-shadow:0 8px 22px #174b391c;
+ position:relative;
+ overflow:hidden;
+}
+.hero:after{
+ content:"₹";
+ position:absolute;
+ right:20px;top:-35px;
+ font-size:150px;
+ font-weight:800;
+ color:#ffffff0c;
+}
+.hero-label{
+ font-size:11px;
+ color:#d1e9dc;
+ letter-spacing:1.5px;
+ text-transform:uppercase;
+}
+.total{
+ font-size:clamp(34px,7vw,46px);
+ font-weight:800;
+ margin:10px 0;
+ position:relative;
+ z-index:1;
+ word-break:break-word;
+}
+.hero-info{
+ display:flex;
+ gap:20px;
+ color:#d2e8dc;
+ font-size:11px;
+ position:relative;
+ z-index:1;
+}
+
+.section{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:12px;
+}
+.section h2{font-size:16px}
+.section span{font-size:10px;color:var(--muted)}
+
+.notes{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:10px;
+}
+
+.note{
+ background:white;
+ border:1px solid var(--border);
+ border-radius:13px;
+ padding:12px;
+ transition:.2s;
+ box-shadow:0 2px 7px #142b1e05;
+}
+.note:focus-within{
+ border-color:#64b993;
+ box-shadow:0 3px 13px #16845d15;
+}
+.note-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:9px;
+}
+.denom{
+ font-size:19px;
+ font-weight:800;
+ color:var(--dark);
+}
+.note-icon{
+ width:27px;height:19px;
+ border-radius:5px;
+ background:#e6f3eb;
+ color:var(--green);
+ display:grid;
+ place-items:center;
+ font-size:10px;
+ font-weight:800;
+}
+.note label{
+ font-size:10px;
+ color:var(--muted);
+ display:block;
+ margin-bottom:5px;
+}
+.note input{
+ width:100%;
+ height:36px;
+ border:1px solid #e5ebe7;
+ border-radius:8px;
+ padding:0 9px;
+ background:#f9fbfa;
+ color:#243c31;
+ outline:none;
+ font-size:14px;
+ font-weight:700;
+ font-family:inherit;
+}
+.note input:focus{border-color:var(--green);background:white}
+.subtotal{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-top:9px;
+ padding-top:8px;
+ border-top:1px solid #f0f2f0;
+ font-size:10px;
+ color:var(--muted);
+}
+.subtotal strong{
+ font-size:12px;
+ color:var(--green);
+}
+
+.summary{
+ margin-top:19px;
+ background:white;
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:16px;
+}
+.summary-title{
+ font-size:14px;
+ font-weight:700;
+ margin-bottom:12px;
+}
+.row{
+ display:flex;
+ justify-content:space-between;
+ padding:9px 0;
+ border-bottom:1px solid #f0f2f0;
+ font-size:11px;
+ color:var(--muted);
+}
+.row strong{color:#30473b}
+.grand{
+ background:#eaf5ee;
+ border:1px solid #d8ebdf;
+ padding:15px;
+ border-radius:12px;
+ margin-top:13px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+}
+.grand span{
+ font-size:12px;
+ font-weight:800;
+ color:var(--dark);
+}
+.grand strong{
+ font-size:clamp(19px,5vw,27px);
+ font-weight:800;
+ color:var(--green);
+ text-align:right;
+}
+
+.buttons{
+ display:flex;
+ gap:10px;
+ margin-top:15px;
+}
+button{
+ flex:1;
+ border:0;
+ padding:12px;
+ border-radius:10px;
+ font-family:inherit;
+ font-size:12px;
+ font-weight:700;
+ cursor:pointer;
+ transition:.2s;
+}
+button:active{transform:scale(.97)}
+.reset{background:#fff0ed;color:#c45b4b;border:1px solid #f6ddd7}
+.print{background:var(--dark);color:white}
+
+footer{
+ text-align:center;
+ color:#9aa69f;
+ font-size:10px;
+ padding:22px 0 5px;
+ letter-spacing:1px;
+}
+
+@media(max-width:430px){
+ body{padding:15px 10px}
+ .notes{gap:7px}
+ .note{padding:9px}
+ .denom{font-size:17px}
+ .note input{height:34px;font-size:13px}
+ .brand h1{font-size:17px}
+ .hero{padding:19px}
+ .offline{font-size:9px;padding:7px}
+}
+
+@media(min-width:650px){
+ .notes{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+@media print{
+ body{background:white;padding:0}
+ .buttons,.offline{display:none}
+ .hero{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .note,.summary{break-inside:avoid}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+ <div class="brand">
+  <div class="logo">₹</div>
+  <div>
+   <h1>RUPEEVAULT</h1>
+   <small>INDIAN CASH COUNTER</small>
+  </div>
+ </div>
+ <div class="offline">● OFFLINE</div>
+</header>
+
+<section class="hero">
+ <div class="hero-label">Total Cash Amount</div>
+ <div class="total" id="grandTop">₹0</div>
+ <div class="hero-info">
+  <span id="noteCount">0 Notes</span>
+  <span id="activeCount">0 Active Notes</span>
+ </div>
+</section>
+
+<div class="section">
+ <h2>Cash Denominations</h2>
+ <span>Enter quantity below</span>
+</div>
+
+<div class="notes" id="notes"></div>
+
+<section class="summary">
+ <div class="summary-title">Cash Summary</div>
+
+ <div class="row">
+  <span>Total Number of Notes</span>
+  <strong id="sumNotes">0</strong>
+ </div>
+ <div class="row">
+  <span>Active Denominations</span>
+  <strong id="sumTypes">0</strong>
+ </div>
+ <div class="row">
+  <span>Total Cash Value</span>
+  <strong id="sumCash">₹0</strong>
+ </div>
+
+ <div class="grand">
+  <span>GRAND TOTAL</span>
+  <strong id="grandBottom">₹0</strong>
+ </div>
+</section>
+
+<div class="buttons">
+ <button class="reset" onclick="resetAll()">↺ Reset All</button>
+ <button class="print" onclick="window.print()">Print Report ↗</button>
+</div>
+
+<footer>RUPEEVAULT · SMART CASH COUNTING</footer>
+</div>
+
+<script>
+const values=[10,20,50,100,200,500,2000];
+const KEY="rupeevault_light_v1";
+
+let saved={};
+
+try{
+ saved=JSON.parse(localStorage.getItem(KEY))||{};
+}catch(e){saved={};}
+
+const notes=document.getElementById("notes");
+
+function money(n){
+ return "₹"+n.toLocaleString("en-IN");
+}
+
+function build(){
+ notes.innerHTML="";
+
+ values.forEach(v=>{
+  let card=document.createElement("div");
+  card.className="note";
+
+  card.innerHTML=`
+   <div class="note-head">
+    <div class="denom">₹${v}</div>
+    <div class="note-icon">₹</div>
+   </div>
+   <label>Number of notes</label>
+   <input type="number" min="0" step="1"
+    inputmode="numeric"
+    placeholder="0"
+    id="qty${v}"
+    value="${saved[v]||""}">
+   <div class="subtotal">
+    <span>Amount</span>
+    <strong id="sub${v}">₹0</strong>
+   </div>
+  `;
+
+  notes.appendChild(card);
+
+  card.querySelector("input").addEventListener("input",()=>{
+   calculate();
+  });
+ });
+
+ calculate();
+}
+
+function calculate(){
+ let total=0,count=0,active=0;
+ let data={};
+
+ values.forEach(v=>{
+  let input=document.getElementById("qty"+v);
+  let raw=input.value;
+  let qty=Math.max(0,Math.floor(Number(raw)||0));
+
+  if(raw!=="" && Number(raw)<0){
+   input.value=0;
+   qty=0;
+  }
+
+  if(raw!=="" && !Number.isInteger(Number(raw))){
+   input.value=qty;
+  }
+
+  let amount=v*qty;
+  total+=amount;
+  count+=qty;
+
+  if(qty>0)active++;
+
+  data[v]=qty;
+  document.getElementById("sub"+v).textContent=money(amount);
+ });
+
+ localStorage.setItem(KEY,JSON.stringify(data));
+
+ document.getElementById("grandTop").textContent=money(total);
+ document.getElementById("grandBottom").textContent=money(total);
+ document.getElementById("noteCount").textContent=count.toLocaleString("en-IN")+" Notes";
+ document.getElementById("activeCount").textContent=active+" Active Notes";
+ document.getElementById("sumNotes").textContent=count.toLocaleString("en-IN");
+ document.getElementById("sumTypes").textContent=active;
+ document.getElementById("sumCash").textContent=money(total);
+}
+
+function resetAll(){
+ if(!confirm("Are you sure you want to clear all quantities?"))return;
+
+ values.forEach(v=>{
+  document.getElementById("qty"+v).value="";
+ });
+
+ localStorage.removeItem(KEY);
+ calculate();
+}
+
+build();
+</script>
+</body>
+</html>
