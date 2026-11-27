@@ -1,281 +1,303 @@
 
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f5faf7">
-<title>RupeeVault | Cash Counter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7652D6">
+<title>RUPEEVAULT</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-:root{
- --green:#16845d;
- --dark:#174b39;
- --bg:#f5f8f6;
- --white:#ffffff;
- --muted:#89968f;
- --border:#e8eeea;
- --gold:#d7a94e;
-}
 *{box-sizing:border-box;margin:0;padding:0}
 
-body{
- font-family:Inter,Arial,sans-serif;
- background:var(--bg);
- color:#263c32;
- padding:20px 14px;
+:root{
+ --bg:#F8F7FC;
+ --white:#FFFFFF;
+ --violet:#7652D6;
+ --violet-dark:#5633A9;
+ --light:#F0EBFF;
+ --text:#292638;
+ --muted:#9993A8;
+ --line:#EAE6F2;
 }
 
-.app{max-width:780px;margin:auto}
+body{
+ font-family:Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ padding:18px 12px;
+}
+
+.app{max-width:590px;margin:auto}
 
 header{
  display:flex;
- align-items:center;
  justify-content:space-between;
+ align-items:center;
  margin-bottom:22px;
 }
 
-.brand{display:flex;align-items:center;gap:10px}
-.logo{
- width:43px;height:43px;
- background:var(--dark);
- border-radius:13px;
- display:grid;place-items:center;
- color:#fff;
- font-size:25px;
- font-weight:800;
- box-shadow:0 5px 12px #174b3925;
-}
-.brand h1{font-size:19px;font-weight:800;letter-spacing:1px}
-.brand small{display:block;color:var(--green);font-size:9px;letter-spacing:2px;margin-top:3px}
+.brand{display:flex;align-items:center;gap:11px}
 
-.offline{
- font-size:10px;
- color:var(--green);
- background:#e7f5ed;
+.logo{
+ width:46px;height:46px;
+ border-radius:15px;
+ background:linear-gradient(145deg,#9B7BFA,#6841C2);
+ color:white;
+ display:grid;place-items:center;
+ font-size:28px;font-weight:800;
+ box-shadow:0 5px 15px #7652D630;
+}
+
+.brand h1{font-size:19px;letter-spacing:1.5px}
+.brand small{
+ color:var(--violet);
+ font-size:9px;
+ letter-spacing:2px;
+}
+
+.status{
+ background:#EAE6FA;
+ color:#6841C2;
  padding:8px 11px;
  border-radius:30px;
- font-weight:700;
+ font-size:10px;
+ font-weight:bold;
 }
 
 .hero{
- background:linear-gradient(120deg,#174b39,#21845e);
- border-radius:20px;
- padding:23px;
+ background:linear-gradient(125deg,#7652D6,#5633A9);
  color:white;
- margin-bottom:22px;
- box-shadow:0 8px 22px #174b391c;
+ padding:24px;
+ border-radius:21px;
+ margin-bottom:23px;
  position:relative;
  overflow:hidden;
+ box-shadow:0 9px 22px #7652D625;
 }
+
 .hero:after{
  content:"₹";
  position:absolute;
- right:20px;top:-35px;
- font-size:150px;
+ right:15px;top:-42px;
+ font-size:175px;
  font-weight:800;
- color:#ffffff0c;
+ color:#ffffff12;
 }
+
 .hero-label{
+ color:#E8DFFF;
  font-size:11px;
- color:#d1e9dc;
- letter-spacing:1.5px;
- text-transform:uppercase;
+ letter-spacing:2px;
 }
+
 .total{
- font-size:clamp(34px,7vw,46px);
+ font-size:clamp(35px,8vw,47px);
  font-weight:800;
- margin:10px 0;
+ margin:12px 0;
+ color:white;
  position:relative;
  z-index:1;
  word-break:break-word;
 }
+
 .hero-info{
  display:flex;
  gap:20px;
- color:#d2e8dc;
  font-size:11px;
- position:relative;
- z-index:1;
+ color:#E8DFFF;
 }
 
-.section{
+.heading{
  display:flex;
  justify-content:space-between;
  align-items:center;
- margin-bottom:12px;
-}
-.section h2{font-size:16px}
-.section span{font-size:10px;color:var(--muted)}
-
-.notes{
- display:grid;
- grid-template-columns:repeat(3,minmax(0,1fr));
- gap:10px;
+ margin-bottom:11px;
 }
 
-.note{
+.heading h2{font-size:16px}
+.heading span{font-size:10px;color:var(--muted)}
+
+.cash-box{
  background:white;
- border:1px solid var(--border);
- border-radius:13px;
- padding:12px;
- transition:.2s;
- box-shadow:0 2px 7px #142b1e05;
+ border:1px solid var(--line);
+ border-radius:18px;
+ overflow:hidden;
+ box-shadow:0 5px 20px #25251d08;
 }
-.note:focus-within{
- border-color:#64b993;
- box-shadow:0 3px 13px #16845d15;
-}
-.note-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:9px;
-}
-.denom{
- font-size:19px;
- font-weight:800;
- color:var(--dark);
-}
-.note-icon{
- width:27px;height:19px;
- border-radius:5px;
- background:#e6f3eb;
- color:var(--green);
+
+.note-row{
  display:grid;
- place-items:center;
- font-size:10px;
- font-weight:800;
-}
-.note label{
- font-size:10px;
- color:var(--muted);
- display:block;
- margin-bottom:5px;
-}
-.note input{
- width:100%;
- height:36px;
- border:1px solid #e5ebe7;
- border-radius:8px;
- padding:0 9px;
- background:#f9fbfa;
- color:#243c31;
- outline:none;
- font-size:14px;
- font-weight:700;
- font-family:inherit;
-}
-.note input:focus{border-color:var(--green);background:white}
-.subtotal{
- display:flex;
- justify-content:space-between;
+ grid-template-columns:100px minmax(0,1fr) 82px;
+ gap:10px;
  align-items:center;
- margin-top:9px;
- padding-top:8px;
- border-top:1px solid #f0f2f0;
- font-size:10px;
- color:var(--muted);
+ min-height:88px;
+ padding:12px 10px;
+ border-bottom:1px solid var(--line);
+ transition:.2s;
 }
-.subtotal strong{
- font-size:12px;
- color:var(--green);
+
+.note-row:last-child{border-bottom:none}
+.note-row:focus-within{background:#FCFAFF}
+
+.note-photo{
+ width:96px;
+ height:49px;
+ object-fit:contain;
+ border:1px solid #F0EDF5;
+ border-radius:6px;
+ background:white;
+}
+
+.note-info{min-width:0}
+
+.note-value{
+ font-size:22px;
+ font-weight:800;
+ color:#393247;
+ margin-bottom:8px;
+}
+
+.note-total{
+ font-size:20px;
+ font-weight:800;
+ color:var(--violet);
+ word-break:break-word;
+}
+
+.qty label{
+ display:block;
+ font-size:9px;
+ font-weight:bold;
+ color:#AAA3B7;
+ margin-bottom:6px;
+ text-align:center;
+}
+
+.qty input{
+ width:100%;
+ height:39px;
+ border:1px solid #E9E4F1;
+ border-radius:10px;
+ background:#FAF9FD;
+ text-align:center;
+ font-size:16px;
+ font-weight:800;
+ outline:none;
+ color:#333;
+}
+
+.qty input:focus{
+ border-color:var(--violet);
+ background:white;
 }
 
 .summary{
- margin-top:19px;
  background:white;
- border:1px solid var(--border);
- border-radius:16px;
- padding:16px;
+ border:1px solid var(--line);
+ border-radius:17px;
+ padding:17px;
+ margin-top:18px;
 }
-.summary-title{
- font-size:14px;
- font-weight:700;
- margin-bottom:12px;
-}
-.row{
+
+.summary h3{font-size:15px;margin-bottom:12px}
+
+.summary-row{
  display:flex;
  justify-content:space-between;
- padding:9px 0;
- border-bottom:1px solid #f0f2f0;
- font-size:11px;
+ padding:10px 0;
+ border-bottom:1px solid var(--line);
+ font-size:12px;
  color:var(--muted);
 }
-.row strong{color:#30473b}
+
+.summary-row strong{color:#393247}
+
 .grand{
- background:#eaf5ee;
- border:1px solid #d8ebdf;
- padding:15px;
- border-radius:12px;
- margin-top:13px;
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:10px;
+ margin-top:14px;
+ padding:18px;
+ border-radius:13px;
+ background:linear-gradient(120deg,#F1ECFF,#E8DEFF);
+ border:1px solid #DCCEFF;
 }
-.grand span{
- font-size:12px;
+
+.grand-label{
+ color:#6841C2;
+ font-size:11px;
  font-weight:800;
- color:var(--dark);
+ letter-spacing:1px;
 }
-.grand strong{
- font-size:clamp(19px,5vw,27px);
+
+.grand-total{
+ color:#6841C2;
+ font-size:clamp(27px,7vw,35px);
  font-weight:800;
- color:var(--green);
- text-align:right;
+ margin-top:8px;
+ word-break:break-word;
 }
 
 .buttons{
  display:flex;
  gap:10px;
- margin-top:15px;
+ margin-top:16px;
 }
+
 button{
  flex:1;
  border:0;
- padding:12px;
- border-radius:10px;
- font-family:inherit;
+ padding:14px;
+ border-radius:11px;
  font-size:12px;
- font-weight:700;
+ font-weight:bold;
  cursor:pointer;
  transition:.2s;
 }
+
 button:active{transform:scale(.97)}
-.reset{background:#fff0ed;color:#c45b4b;border:1px solid #f6ddd7}
-.print{background:var(--dark);color:white}
+
+.reset{
+ background:#F0EBFF;
+ border:1px solid #E0D5FF;
+ color:#6841C2;
+}
+
+.print{background:#7652D6;color:white}
 
 footer{
  text-align:center;
- color:#9aa69f;
+ padding:23px 0 5px;
+ color:#AAA3B7;
  font-size:10px;
- padding:22px 0 5px;
- letter-spacing:1px;
+ letter-spacing:1.5px;
 }
 
-@media(max-width:430px){
- body{padding:15px 10px}
- .notes{gap:7px}
- .note{padding:9px}
- .denom{font-size:17px}
- .note input{height:34px;font-size:13px}
- .brand h1{font-size:17px}
- .hero{padding:19px}
- .offline{font-size:9px;padding:7px}
+@media(max-width:360px){
+ .note-row{
+  grid-template-columns:77px minmax(0,1fr) 66px;
+  gap:7px;
+  padding:10px 7px;
+ }
+ .note-photo{width:75px;height:40px}
+ .note-value{font-size:19px}
+ .note-total{font-size:17px}
+ .qty input{height:36px;font-size:14px}
 }
 
-@media(min-width:650px){
- .notes{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(min-width:550px){
+ .note-row{
+  grid-template-columns:125px minmax(0,1fr) 100px;
+  padding:13px 16px;
+ }
+ .note-photo{width:115px;height:56px}
 }
 
 @media print{
  body{background:white;padding:0}
- .buttons,.offline{display:none}
- .hero{print-color-adjust:exact;-webkit-print-color-adjust:exact}
- .note,.summary{break-inside:avoid}
+ .buttons,.status{display:none}
+ .hero,.grand{
+  print-color-adjust:exact;
+  -webkit-print-color-adjust:exact;
+ }
 }
 </style>
 </head>
@@ -291,100 +313,127 @@ footer{
    <small>INDIAN CASH COUNTER</small>
   </div>
  </div>
- <div class="offline">● OFFLINE</div>
+ <div class="status">● OFFLINE</div>
 </header>
 
 <section class="hero">
- <div class="hero-label">Total Cash Amount</div>
- <div class="total" id="grandTop">₹0</div>
+ <div class="hero-label">GRAND TOTAL</div>
+ <div class="total" id="topTotal">₹0</div>
  <div class="hero-info">
   <span id="noteCount">0 Notes</span>
-  <span id="activeCount">0 Active Notes</span>
+  <span id="activeCount">0 Active</span>
  </div>
 </section>
 
-<div class="section">
- <h2>Cash Denominations</h2>
- <span>Enter quantity below</span>
+<div class="heading">
+ <h2>Cash Counter</h2>
+ <span>Enter Quantity</span>
 </div>
 
-<div class="notes" id="notes"></div>
+<div class="cash-box" id="cashBox"></div>
 
 <section class="summary">
- <div class="summary-title">Cash Summary</div>
+ <h3>Cash Summary</h3>
 
- <div class="row">
-  <span>Total Number of Notes</span>
+ <div class="summary-row">
+  <span>Total Notes</span>
   <strong id="sumNotes">0</strong>
  </div>
- <div class="row">
-  <span>Active Denominations</span>
+
+ <div class="summary-row">
+  <span>Active Notes</span>
   <strong id="sumTypes">0</strong>
  </div>
- <div class="row">
-  <span>Total Cash Value</span>
+
+ <div class="summary-row">
+  <span>Total Amount</span>
   <strong id="sumCash">₹0</strong>
  </div>
 
  <div class="grand">
-  <span>GRAND TOTAL</span>
-  <strong id="grandBottom">₹0</strong>
+  <div class="grand-label">GRAND TOTAL</div>
+  <div class="grand-total" id="bottomTotal">₹0</div>
  </div>
 </section>
 
 <div class="buttons">
- <button class="reset" onclick="resetAll()">↺ Reset All</button>
- <button class="print" onclick="window.print()">Print Report ↗</button>
+ <button class="reset" onclick="resetAll()">↺ RESET</button>
+ <button class="print" onclick="window.print()">PRINT REPORT ↗</button>
 </div>
 
-<footer>RUPEEVAULT · SMART CASH COUNTING</footer>
+<footer>RUPEEVAULT · SMART CASH COUNTER</footer>
 </div>
 
 <script>
-const values=[10,20,50,100,200,500,2000];
-const KEY="rupeevault_light_v1";
+const notes=[
+ {v:10,img:"https://commons.wikimedia.org/wiki/Special:FilePath/India_new_10_INR,_MG_series,_2018,_obverse.jpg"},
+ {v:20,img:"https://commons.wikimedia.org/wiki/Special:FilePath/India_new_20_INR,_MG_series,_2019,_obverse.jpg"},
+ {v:50,img:"https://commons.wikimedia.org/wiki/Special:FilePath/India_new_50_INR,_MG_series,_2018,_obverse.jpg"},
+ {v:100,img:"https://commons.wikimedia.org/wiki/Special:FilePath/India_new_100_INR,_Mahatma_Gandhi_New_Series,_2018,_obverse.png"},
+ {v:200,img:"https://commons.wikimedia.org/wiki/Special:FilePath/India,_200_INR,_2018,_obverse.jpg"},
+ {v:500,img:"https://commons.wikimedia.org/wiki/Special:FilePath/India_new_500_INR,_MG_series,_2016,_obverse.jpg"},
+ {v:2000,img:"https://commons.wikimedia.org/wiki/Special:FilePath/India_new_2000_INR,_MG_series,_2016,_obverse.jpg"}
+];
 
+const KEY="rupeevault_violet_v5";
 let saved={};
 
 try{
  saved=JSON.parse(localStorage.getItem(KEY))||{};
 }catch(e){saved={};}
 
-const notes=document.getElementById("notes");
+const box=document.getElementById("cashBox");
 
 function money(n){
  return "₹"+n.toLocaleString("en-IN");
 }
 
-function build(){
- notes.innerHTML="";
+function createRows(){
+ box.innerHTML="";
 
- values.forEach(v=>{
-  let card=document.createElement("div");
-  card.className="note";
+ notes.forEach(note=>{
+  const row=document.createElement("div");
+  row.className="note-row";
 
-  card.innerHTML=`
-   <div class="note-head">
-    <div class="denom">₹${v}</div>
-    <div class="note-icon">₹</div>
-   </div>
-   <label>Number of notes</label>
-   <input type="number" min="0" step="1"
-    inputmode="numeric"
-    placeholder="0"
-    id="qty${v}"
-    value="${saved[v]||""}">
-   <div class="subtotal">
-    <span>Amount</span>
-    <strong id="sub${v}">₹0</strong>
-   </div>
-  `;
+  const img=document.createElement("img");
+  img.className="note-photo";
+  img.src=note.img;
+  img.alt="₹"+note.v;
+  img.onerror=()=>{img.style.visibility="hidden";};
 
-  notes.appendChild(card);
+  const info=document.createElement("div");
+  info.className="note-info";
 
-  card.querySelector("input").addEventListener("input",()=>{
-   calculate();
-  });
+  const value=document.createElement("div");
+  value.className="note-value";
+  value.textContent="₹"+note.v;
+
+  const total=document.createElement("div");
+  total.className="note-total";
+  total.id="amount-"+note.v;
+  total.textContent="₹0";
+
+  info.append(value,total);
+
+  const qty=document.createElement("div");
+  qty.className="qty";
+
+  const label=document.createElement("label");
+  label.textContent="QTY";
+
+  const input=document.createElement("input");
+  input.type="number";
+  input.min="0";
+  input.step="1";
+  input.inputMode="numeric";
+  input.placeholder="0";
+  input.id="qty-"+note.v;
+  input.value=saved[note.v]||"";
+  input.addEventListener("input",calculate);
+
+  qty.append(label,input);
+  row.append(img,info,qty);
+  box.appendChild(row);
  });
 
  calculate();
@@ -394,8 +443,8 @@ function calculate(){
  let total=0,count=0,active=0;
  let data={};
 
- values.forEach(v=>{
-  let input=document.getElementById("qty"+v);
+ notes.forEach(note=>{
+  const input=document.getElementById("qty-"+note.v);
   let raw=input.value;
   let qty=Math.max(0,Math.floor(Number(raw)||0));
 
@@ -408,39 +457,42 @@ function calculate(){
    input.value=qty;
   }
 
-  let amount=v*qty;
+  let amount=qty*note.v;
   total+=amount;
   count+=qty;
-
   if(qty>0)active++;
 
-  data[v]=qty;
-  document.getElementById("sub"+v).textContent=money(amount);
+  data[note.v]=qty;
+
+  document.getElementById("amount-"+note.v)
+   .textContent=money(amount);
  });
 
- localStorage.setItem(KEY,JSON.stringify(data));
+ try{
+  localStorage.setItem(KEY,JSON.stringify(data));
+ }catch(e){}
 
- document.getElementById("grandTop").textContent=money(total);
- document.getElementById("grandBottom").textContent=money(total);
+ document.getElementById("topTotal").textContent=money(total);
+ document.getElementById("bottomTotal").textContent=money(total);
  document.getElementById("noteCount").textContent=count.toLocaleString("en-IN")+" Notes";
- document.getElementById("activeCount").textContent=active+" Active Notes";
+ document.getElementById("activeCount").textContent=active+" Active";
  document.getElementById("sumNotes").textContent=count.toLocaleString("en-IN");
  document.getElementById("sumTypes").textContent=active;
  document.getElementById("sumCash").textContent=money(total);
 }
 
 function resetAll(){
- if(!confirm("Are you sure you want to clear all quantities?"))return;
+ if(!confirm("Reset all quantities?"))return;
 
- values.forEach(v=>{
-  document.getElementById("qty"+v).value="";
+ notes.forEach(note=>{
+  document.getElementById("qty-"+note.v).value="";
  });
 
- localStorage.removeItem(KEY);
+ try{localStorage.removeItem(KEY);}catch(e){}
  calculate();
 }
 
-build();
+createRows();
 </script>
 </body>
 </html>
